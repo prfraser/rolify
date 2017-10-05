@@ -1,0 +1,23 @@
+<h1>Profile</h1>
+<%= @user.email %>
+
+<% if current_user.has_role? :dog %>
+	<img src="http://media.istockphoto.com/photos/jack-russell-terrier-dog-picture-id497231771?k=6&m=497231771&s=612x612&w=0&h=-a_7QXiLnWgw3o8ZR6jpoM9rQP4g9fOOXS69GRzKv4g=" alt="">
+<% elsif current_user.has_role? :cat %>
+	<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK0fKJJjPrp1hd8-to2xX2MrfmQn72QuGkZoqhdnctkX4nulpIbw" alt="">
+<% elsif current_user.has_role? :bird %>
+	<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThurHLSr8Ul5nMQklw9DJ3OrB282t9HrMJW_iQba684mge3tDxbQ" alt="">
+<% end %>
+
+<h3>Other Users:</h3>
+
+<%= form_tag(profile_index_path, method: :get) do %>
+	<%= select(:role, params[:role], [:dog, :cat, :bird]) %>
+  <%= submit_tag 'Search', name: nil %>
+<% end %>
+
+<%= params.inspect %>
+<% @users.each do |user| %>
+	<p><%= user.email %> </p>
+	<%= link_to "Show", profile_path(user)%>
+<% end %>
